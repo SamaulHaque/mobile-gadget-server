@@ -18,6 +18,7 @@ async function run() {
     try {
         const categoriesCollection = client.db('mobileGadget').collection('categories');
         const allCategoryCollection = client.db('mobileGadget').collection('allCategory');
+        const bookingsCollection = client.db('mobileGadget').collection('bookings');
 
         app.get('/categories', async (req, res) => {
             const query = {};
@@ -31,6 +32,12 @@ async function run() {
             const allCategory = await allCategoryCollection.find(query).toArray();
             const category_mobile = allCategory.filter(mobile => mobile.category_id === id)
             res.send(category_mobile);
+        })
+
+        app.post('/bookings', async(req, res) => {
+            const booking = req.body;
+            const result = await bookingsCollection.insertOne(booking);
+            res.send(result);
         })
 
     }
