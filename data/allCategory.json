@@ -2,55 +2,111 @@
     {
         "category_id": "01",
         "title": "Samsung Galaxy S21",
-        "img": "https://mobilemaya24.com/wp-content/uploads/2020/11/Samsung-Galaxy-S21-Ultra-5G-1.jpg"
+        "img": "https://mobilemaya24.com/wp-content/uploads/2020/11/Samsung-Galaxy-S21-Ultra-5G-1.jpg",
+        "location": "Dhaka",
+        "resale_price": "23500",
+        "original_price": "29000",
+        "Used": "2+ Years",
+        "posted_time": "01-12-2022",
+        "seller_name": "Samaul Haque"
         
       },
     {
         "category_id": "01",
         "title": "Samsung Galaxy S20",
-        "img": "https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-s20-1.jpg"
+        "img": "https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-s20-1.jpg",
+        "location": "Mirpur",
+        "resale_price": "33000",
+        "original_price": "42000",
+        "Used": "2+ Years",
+        "posted_time": "21-11-2022",
+        "seller_name": "Jihad"
         
       },
-    {
+      {
         "category_id": "01",
-        "title": "Samsung Galaxy S20",
-        "img": "https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-s20-1.jpg"
+        "title": "Samsung Galaxy A32",
+        "img": "https://www.mobilebd.co/wp-content/uploads/2021/04/Samsung-Galaxy-A32-Official-image-1.jpg",
+        "location": "Rajshahi",
+        "resale_price": "23000",
+        "original_price": "29000",
+        "Used": "2+ Years",
+        "posted_time": "03-12-2022",
+        "seller_name": "Sourav"
         
       },
     {
         "category_id": "02",
         "title": "Redmi-9",
-        "img": "https://www.gadgetbytenepal.com/wp-content/uploads/2022/04/Redmi-9-Activ-Carbon-Black.jpg"
+        "img": "https://www.gadgetbytenepal.com/wp-content/uploads/2022/04/Redmi-9-Activ-Carbon-Black.jpg",
+        "location": "Dhaka",
+        "resale_price": "23000",
+        "original_price": "29000",
+        "Used": "2+ Years",
+        "posted_time": "02-12-2022",
+        "seller_name": "Jibon Ghos"
         
       },
     {
         "category_id": "02",
         "title": "Redmi-Note-10",
-        "img": "https://phonesdata.com/files/models/Xiaomi-Redmi-Note-10-774.jpg"
+        "img": "https://phonesdata.com/files/models/Xiaomi-Redmi-Note-10-774.jpg",
+        "location": "Gulshan",
+        "resale_price": "28000",
+        "original_price": "33000",
+        "Used": "2+ Years",
+        "posted_time": "02-12-2022",
+        "seller_name": "Faysal"
         
       },
-    {
+      {
         "category_id": "02",
-        "title": "Redmi-Note-10",
-        "img": "https://phonesdata.com/files/models/Xiaomi-Redmi-Note-10-774.jpg"
+        "title": "Redmi Note 8",
+        "img": "https://www.gizmochina.com/wp-content/uploads/2019/09/Xiaomi-Redmi-Note-8-1.jpg",
+        "location": "Dhaka",
+        "resale_price": "22000",
+        "original_price": "29000",
+        "Used": "2+ Years",
+        "posted_time": "29-11-2022",
+        "seller_name": "Arif Hossain"
         
       },
+    
     {
         "category_id": "03",
         "title": "Vivo Y53",
-        "img": "https://m.media-amazon.com/images/I/41HiCWhbveL.jpg"
+        "img": "https://m.media-amazon.com/images/I/41HiCWhbveL.jpg",
+        "location": "Dhaka",
+        "resale_price": "34000",
+        "original_price": "39500",
+        "Used": "2+ Years",
+        "posted_time": "01-12-2022",
+        "seller_name": "Shamim Ahmed"
         
       },
     {
         "category_id": "03",
         "title": "Vivo Z1 pro",
-        "img": "https://www.bdstall.com/asset/product-image/giant_87859.jpg"
+        "img": "https://www.bdstall.com/asset/product-image/giant_87859.jpg",
+        "location": "Kustia",
+        "resale_price": "18000",
+        "original_price": "23000",
+        "Used": "2+ Years",
+        "posted_time": "02-12-2022",
+        "seller_name": "Aftab Ahmed"
         
       },
-    {
+      {
         "category_id": "03",
-        "title": "Vivo Z1 pro",
-        "img": "https://www.bdstall.com/asset/product-image/giant_87859.jpg"
+        "title": "Vivo Y7s",
+        "img": "https://www.mobigyaan.com/wp-content/uploads/2019/07/vivo-y7s-e1563352476966.jpg",
+        "location": "Rangpur",
+        "resale_price": "20000",
+        "original_price": "24000",
+        "Used": "2+ Years",
+        "posted_time": "01-12-2022",
+        "seller_name": "Mamun Ali"
         
       }
+    
 ]
