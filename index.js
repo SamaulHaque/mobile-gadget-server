@@ -37,7 +37,8 @@ async function run() {
         const categoriesCollection = client.db('mobileGadget').collection('categories');
         const allCategoryCollection = client.db('mobileGadget').collection('allCategory');
         const bookingsCollection = client.db('mobileGadget').collection('bookings');
-        const usersCollection = client.db('mobileGadget').collection('users')
+        const usersCollection = client.db('mobileGadget').collection('users');
+        const productsCollection = client.db('mobileGadget').collection('products');
 
 
         app.get('/categories', async (req, res) => {
@@ -81,6 +82,30 @@ async function run() {
             }
             res.status(403).send({accessToken: ''})
           });
+
+          app.post('/add-product', async(req, res) => {
+            const productInfo = req.body;
+            const result = await productsCollection.insertOne(productInfo);
+            res.send(result);
+        })
+
+        // app.get('/bookings', verifyJWT, async(req, res) => {
+        //     const email = req.query.email;
+        //     const decodedEmail = req.decoded.email;
+        //     if(email !== decodedEmail){
+        //         return res.status(403).send({message: 'forbidden access'})
+        //     }
+        //     const query = {email: email};
+        //     const bookings = await bookingsCollection.find(query).toArray();
+        //     res.send(bookings);
+        // })
+
+        app.get('/my-product', async(req, res) => {
+            const email = req.query.email;
+            const query = {email: email};
+            const products = await productsCollection.find(query).toArray();
+            res.send(products);
+        })
 
 
           app.get('/users', async(req, res) => {
