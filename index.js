@@ -107,13 +107,23 @@ async function run() {
             res.send(products);
         })
 
-
+        //all seller get api
           app.get('/users', async(req, res) => {
             const query = {};
             const users = await usersCollection.find(query).toArray();
             const seller= users.filter(seller => seller.accountType === "seller")
             res.send(seller);
           }) 
+
+          //all buyer get api
+
+          app.get('/buyer', async(req, res) => {
+            const query = {};
+            const users = await usersCollection.find(query).toArray();
+            const seller= users.filter(seller => seller.accountType === "user")
+            res.send(seller);
+          }) 
+
 
           app.get('/users/admin/:email', async(req, res) => {
             const email = req.params.email;
