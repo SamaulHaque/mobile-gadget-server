@@ -192,7 +192,7 @@ async function run() {
             const email = req.params.email;
             const query = {email}
             const user = await usersCollection.findOne(query);
-            res.send({isAdmin: user?.accountType === 'seller'});
+            res.send({isSeller: user?.accountType === 'seller'});
           })
 
 
