@@ -42,6 +42,7 @@ async function run() {
         const usersCollection = client.db('mobileGadget').collection('users');
         const productsCollection = client.db('mobileGadget').collection('products');
         const paymentsCollection = client.db('mobileGadget').collection('payments')
+        const advertisesCollection = client.db('mobileGadget').collection('advertises')
 
 
         app.get('/categories', async (req, res) => {
@@ -154,8 +155,30 @@ async function run() {
             res.send(products);
         })
 
+        app.get('/my-product/:id', async(req, res) => {
+          const id = req.params.id;
+          const query = {_id: ObjectId(id)};
+          const product = await productsCollection.findOne(query);
+          res.send(product);
+        })
+
+        app.post('/advertises/:id', async(req, res) => {
+          const advertise = req.body;
+          const result = await advertisesCollection.insertOne(advertise);
+          res.send(result);
+
+        })
+
+        app.get('/advertises', async(req, res) => {
+          const query = {};
+          const advertisesItems = await advertisesCollection.find(query).toArray();
+          res.send(advertisesItems)
+        })
+
+        
+
         //my product delete api
-        app.delete('/my-product/:id',  async(req, res) => {
+        app.delete('/my-product/:id', async(req, res) => {
             const id = req.params.id;
             const filter = {_id: ObjectId(id)};
             const result = await productsCollection.deleteOne(filter);
@@ -163,20 +186,20 @@ async function run() {
           })
 
         //all seller get api
-          app.get('/users', async(req, res) => {
+          app.get('/users',  async(req, res) => {
             const query = {};
             const users = await usersCollection.find(query).toArray();
             const seller= users.filter(seller => seller.accountType === "seller")
-            res.send(seller);
+            const allSeller = seller.filter(sl => sl.role !== "admin" )
+            res.send(allSeller);
           }) 
 
           //all buyer get api
-
-          app.get('/buyer', async(req, res) => {
+          app.get('/buyer',  async(req, res) => {
             const query = {};
             const users = await usersCollection.find(query).toArray();
-            const seller= users.filter(seller => seller.accountType === "user")
-            res.send(seller);
+            const allBuyer = users.filter(user => user.role !== "admin" && user.accountType === 'user')
+            res.send(allBuyer);
           }) 
 
           //admin api
@@ -188,7 +211,7 @@ async function run() {
           })
 
           //seller api
-          app.get('/users/seller/:email', async(req, res) => {
+          app.get('/users/seller/:email',  async(req, res) => {
             const email = req.params.email;
             const query = {email}
             const user = await usersCollection.findOne(query);
@@ -209,7 +232,6 @@ async function run() {
             const result = await usersCollection.deleteOne(filter);
             res.send(result);
           })
-
 
 
         app.post('/users', async(req, res) => {
@@ -246,7 +268,6 @@ async function run() {
     }
 }
 run().catch(console.log)
-
 
 
 app.get('/', async (req, res) => {
