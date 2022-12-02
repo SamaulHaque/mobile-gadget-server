@@ -4,6 +4,8 @@ const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 require('dotenv').config();
 const jwt = require('jsonwebtoken')
 const port = process.env.PORT || 5000;
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+
 
 const app = express();
 
@@ -39,6 +41,7 @@ async function run() {
         const bookingsCollection = client.db('mobileGadget').collection('bookings');
         const usersCollection = client.db('mobileGadget').collection('users');
         const productsCollection = client.db('mobileGadget').collection('products');
+        const paymentsCollection = client.db('mobileGadget').collection('payments')
 
 
         app.get('/categories', async (req, res) => {
@@ -64,12 +67,56 @@ async function run() {
             const query = {email: email};
             const bookings = await bookingsCollection.find(query).toArray();
             res.send(bookings);
-        })
+        });
+
+
+        app.get('/bookings/:id', async(req, res) => {
+            const id= req.params.id;
+            const query = {_id: ObjectId(id)};
+            const booking = await bookingsCollection.findOne(query);
+            res.send(booking)
+          })
 
         app.post('/bookings', async(req, res) => {
             const booking = req.body;
             const result = await bookingsCollection.insertOne(booking);
             res.send(result);
+        });
+
+
+
+        app.post('/create-payment-intent', async(req, res) => {
+          const booking = req.body;
+          const price = booking.price;
+          const amount = price * 100;
+
+          const paymentIntent = await stripe.paymentIntents.create({
+            currency: "usd",
+            amount : amount,
+            "payment_method_types": [
+              "card"
+            ]
+            
+          });
+        
+          res.send({
+            clientSecret: paymentIntent.client_secret,
+          });
+        })
+
+        app.post('/payments', async(req, res) => {
+          const payment = req.body;
+          const result = await paymentsCollection.insertOne(payment);
+          const id = payment.bookingId
+          const filter = {_id: ObjectId(id)}
+          const updatedDoc = {
+            $set : {
+              paid: true,
+              transactionId: payment.transactionId
+            }
+          }
+          const updatedResult = await bookingsCollection.updateOne(filter, updatedDoc)
+          res.send(result);
         })
 
         app.get('/jwt', async(req, res) => {
@@ -106,6 +153,14 @@ async function run() {
             const products = await productsCollection.find(query).toArray();
             res.send(products);
         })
+
+        //my product delete api
+        app.delete('/my-product/:id',  async(req, res) => {
+            const id = req.params.id;
+            const filter = {_id: ObjectId(id)};
+            const result = await productsCollection.deleteOne(filter);
+            res.send(result);
+          })
 
         //all seller get api
           app.get('/users', async(req, res) => {
@@ -155,29 +210,6 @@ async function run() {
             res.send(result);
           })
 
-
-
-
-          app.put('/users/seller/:id', verifyJWT,  async(req, res) => {
-            const decodedEmail = req.decoded.email;
-            const query = {email: decodedEmail};
-            const user = await usersCollection.findOne(query)
-
-            if(user?.accountType !== 'seller'){
-                return res.status(403).send({message: 'forbidden access'})
-            }
-            
-            const id = req.params.id;
-            const filter = {_id: ObjectId(id)}
-            const options = {upsert: true};
-            const updatedDoc = {
-                $set: {
-                    accountType: 'seller'
-                 }
-            }
-            const result = await usersCollection.updateOne(filter, updatedDoc, options);
-            res.send(result)
-          })
 
 
         app.post('/users', async(req, res) => {
